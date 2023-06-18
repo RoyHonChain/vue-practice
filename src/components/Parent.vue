@@ -12,12 +12,11 @@
         </v-row>
         <Child 
         :dialog="dialog" 
-        :itemIndex="itemIndex" 
-        :itemTitle = "itemTitle" 
-        :itemContents="itemContents"
+        :cardIndex="cardIndex" 
+        :card="card"
+        @updateCard="updateCard"
         @closeDialog="closeDialog" 
-        @updateTitle="updateTitle"
-        @updateContents="updateContents"
+        
         v-model="dialog" 
         width="auto" 
         />
@@ -26,7 +25,7 @@
   
 <script setup>
     import { defineProps, defineEmits } from 'vue';
-    import { ref } from 'vue';
+    import { ref, reactive } from 'vue';
     import { mdiPencil, mdiContentSave } from '@mdi/js'
     import Child from '@/components/Child.vue'
 
@@ -40,26 +39,26 @@
 
     const dialog = ref(false);
     
-    const itemIndex = ref(0);
-    const itemTitle = ref("");
-    const itemContents = ref("");
+    const cardIndex = ref(0);
 
-    const emits = defineEmits(['closeDialog','updateTitle','updateContents']);
+    const card = reactive({title:"",contents:""});
+
+    const emits = defineEmits(['closeDialog','updateCard']);
 
     const openDialog = (index) => {
-        itemIndex.value = index;
-        itemTitle.value = card_items[index].title;
-        itemContents.value = card_items[index].contents;
+        cardIndex.value = index;
+
+        card.title = card_items[index].title;
+        card.contents = card_items[index].contents;
+
         dialog.value = true;
     };
     const closeDialog = () => {
         dialog.value = false;
     };
-    const updateTitle = (index,newTitle) => {
-        card_items[index].title = newTitle;
-    }
-    const updateContents = (index,newContents) => {
-        card_items[index].contents = newContents;
+
+    const updateCard = (index, newCard) => {
+        card_items[index] = {...newCard};
     }
 
     const saveCard = (index) => {

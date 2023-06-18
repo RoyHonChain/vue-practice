@@ -2,9 +2,9 @@
     <v-dialog >
         <v-card style="width: 500px; height: 400px;">
             <v-card-text>088le</v-card-text>
-            <v-text-field v-model="tempTitle"></v-text-field>
+            <v-text-field v-model="tempCard.title"></v-text-field>
 
-            <v-textarea v-model="tempContents"></v-textarea>
+            <v-textarea v-model="tempCard.contents"></v-textarea>
 
             <v-card-actions class="justify-end">
                 <v-btn color="secondary" @click="cancelDialog">Cancel</v-btn>
@@ -15,24 +15,19 @@
 </template>
 
 <script setup>
-    import { defineProps, defineEmits, ref, watch } from 'vue';
+    import { defineProps, defineEmits, ref, reactive, watch } from 'vue';
 
     const props = defineProps({
         dialog: Boolean,
-        itemIndex: Number,
-        itemTitle: String,
-        itemContents: String
+        cardIndex: Number,
+        card: Object
     });
-    const emits = defineEmits(['closeDialog','updateTitle','updateContents']);
+    const emits = defineEmits(['closeDialog','updateCard']);
     
-    
-    const tempTitle = ref("");
-    const tempContents = ref("");
-
+    let tempCard = reactive({title:"",contents:""});
     
     const confirmDialog = () => {
-        emits('updateTitle',props.itemIndex,tempTitle.value);
-        emits('updateContents',props.itemIndex,tempContents.value);
+        emits('updateCard',props.cardIndex,tempCard);
         emits('closeDialog');
     };
 
@@ -42,11 +37,11 @@
 
     
     watch(()=>props.dialog,(newValue)=>{
-        if(newValue == true){
-            tempTitle.value = props.itemTitle;
-            tempContents.value = props.itemContents;
+        if(newValue==true){
+            tempCard.title = props.card.title;
+            tempCard.contents = props.card.contents;
         }
-        
+            
     });
   
 </script>
