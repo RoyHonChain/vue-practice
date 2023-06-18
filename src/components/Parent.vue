@@ -12,7 +12,6 @@
         </v-row>
         <Child 
         :dialog="dialog" 
-        :cardIndex="cardIndex" 
         :card="card"
         @updateCard="updateCard"
         @closeDialog="closeDialog" 
@@ -24,7 +23,7 @@
 </template>
   
 <script setup>
-    import { defineProps, defineEmits } from 'vue';
+    import { defineEmits } from 'vue';
     import { ref, reactive } from 'vue';
     import { mdiPencil, mdiContentSave } from '@mdi/js'
     import Child from '@/components/Child.vue'
@@ -41,24 +40,21 @@
     
     const cardIndex = ref(0);
 
-    const card = reactive({title:"",contents:""});
+    let card = reactive({title:"",contents:""});
 
     const emits = defineEmits(['closeDialog','updateCard']);
 
     const openDialog = (index) => {
         cardIndex.value = index;
-
-        card.title = card_items[index].title;
-        card.contents = card_items[index].contents;
-
+        card = reactive(card_items[index]);
         dialog.value = true;
     };
     const closeDialog = () => {
         dialog.value = false;
     };
 
-    const updateCard = (index, newCard) => {
-        card_items[index] = {...newCard};
+    const updateCard = (newCard) => {
+        card_items[cardIndex.value] = {...newCard};
     }
 
     const saveCard = (index) => {
