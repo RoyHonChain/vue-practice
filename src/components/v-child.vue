@@ -1,12 +1,22 @@
 <template>
-    <v-dialog >
+    <v-dialog>
         <v-card style="width: 500px; height: 400px;">
             <v-card-text>變更卡片資料</v-card-text>
-            <v-text-field v-model="tempCard.title"></v-text-field>
-            <v-textarea v-model="tempCard.contents"></v-textarea>
+            <v-text-field v-model="tempCard.title" />
+            <v-textarea v-model="tempCard.contents" />
             <v-card-actions class="justify-end">
-                <v-btn color="secondary" @click="cancelDialog">Cancel</v-btn>
-                <v-btn color="primary" @click="confirmDialog">Confirm</v-btn>
+                <v-btn
+                    color="secondary"
+                    @click="cancelDialog"
+                >
+                    Cancel
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    @click="confirmDialog"
+                >
+                    Confirm
+                </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -17,6 +27,7 @@
 
     const props = defineProps({
         dialog: Boolean,
+        // eslint-disable-next-line vue/require-default-prop
         card: Object
     });
     const emits = defineEmits(['closeDialog','updateCard']);
@@ -30,7 +41,7 @@
 
     const cancelDialog = () => {
         emits('closeDialog');
-    }
+    };
 
     
     watch(()=>props.dialog,()=>{

@@ -1,0 +1,83 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/strongly-recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "parser": "@babel/eslint-parser",
+        "requireConfigFile": false
+    },
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+        "no-unused-vars": "warn",
+        "indent": [
+            "error",
+            4
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "array-bracket-newline": [
+            "error",
+            {
+                "multiline": true
+            }
+        ],
+        "dot-notation": "error",
+        "no-multi-spaces": "error",
+        "no-useless-return": "error",
+        "vue/script-indent": [
+            "error",
+            4,
+            {
+                "baseIndent": 1
+            }
+        ],
+        "vue/html-indent": [
+            "error",
+            4,
+            {
+                "baseIndent": 1
+            }
+        ],
+        "vue/max-attributes-per-line": [
+            "error"
+        ],
+        "vue/prop-name-casing": [
+            "error",
+            "snake_case"
+        ],
+        "vue/component-name-in-template-casing": [
+            "error",
+            "kebab-case",
+            {
+                "registeredComponentsOnly": true,
+                "ignores": []
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.vue"
+            ],
+            "rules": {
+                "indent": "off"
+            }
+        }
+    ]
+}

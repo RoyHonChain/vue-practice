@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <v-main>
-      <Parent />
-    </v-main>
-  </v-app>
+    <v-app>
+        <v-main>
+            <parent />
+        </v-main>
+    </v-app>
 </template>
 
 <script setup>
-  import Parent from '@/components/Parent.vue'
+    import parent from '@/components/v-parent.vue';
 </script>
