@@ -13,12 +13,27 @@
                     >
                         <v-card
                             :title="card.title"
-                            :text="card.contents"
+                            style="height: 169px;"
+                            class="d-flex flex-column"
                         >
-                            <v-row
-                                class="justify-end"
-                                style="margin:5px;"
-                            >
+                            <v-card-text>
+                                <v-row no-gutters>
+                                    {{ card.contents }}
+                                </v-row>
+                                <v-row
+                                    v-if="card.hobbys"
+                                    align="center"
+                                    no-gutters
+                                >
+                                    興趣：
+                                    <v-chip
+                                        size="small"
+                                    >
+                                        {{ card.hobbys.name }}
+                                    </v-chip>
+                                </v-row>
+                            </v-card-text>
+                            <v-card-actions class="justify-end">
                                 <v-icon
                                     :icon="mdiPencil"
                                     @click="openDialog(2*index)"
@@ -29,7 +44,7 @@
                                     @click="saveCard(2*index)"
                                     color="grey"
                                 />
-                            </v-row>
+                            </v-card-actions>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -47,12 +62,29 @@
                     >
                         <v-card
                             :title="card.title"
-                            :text="card.contents"
+                            style="height: 169px;"
+                            class="d-flex flex-column"
                         >
-                            <v-row
-                                class="justify-end"
-                                style="margin:5px;"
-                            >
+                            <v-card-text>
+                                <v-row no-gutters>
+                                    {{ card.contents }}
+                                </v-row>
+                                <v-row
+                                    v-if="card.hobbys?.length>0"
+                                    align="center"
+                                    no-gutters
+                                >
+                                    興趣：
+                                    <v-chip
+                                        v-for="hobby in card.hobbys"
+                                        :key="hobby.id"
+                                        size="small"
+                                    >
+                                        {{ hobby.name }}
+                                    </v-chip>
+                                </v-row>
+                            </v-card-text>
+                            <v-card-actions class="justify-end">
                                 <v-icon
                                     :icon="mdiPencil"
                                     @click="openDialog(1+(2*index))"
@@ -63,7 +95,7 @@
                                     @click="saveCard(1+(2*index))"
                                     color="grey"
                                 />
-                            </v-row>
+                            </v-card-actions>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -72,6 +104,7 @@
         <child 
             :dialog="dialog" 
             :card="propCard"
+            :index="cardIndex"
             @updateCard="updateCard"
             @closeDialog="closeDialog" 
         
@@ -87,16 +120,19 @@
     import child from '@/components/v-child.vue';
 
     const card_items = [
-        { title: "第一張卡片", contents: "一排只能三張卡片唷！" },
-        { title: "第二張卡片", contents: "ㄏㄏㄏ" },
-        { title: "第三張卡片", contents: "ＸＤＤＤ" },
-        { title: "第四張卡片", contents: "今天天氣真好" },
-        { title: "第五張卡片", contents: "亂講 明明就很糟" },
-        { title: "第六張卡片", contents: "亂講 明明就很糟" },
-        { title: "第七張卡片", contents: "亂講 明明就很糟" },
-        { title: "第八張卡片", contents: "亂講 明明就很糟" },
-        { title: "第九張卡片", contents: "亂講 明明就很糟" },
+        { title: "第一張卡片", contents: "一排只能三張卡片唷！"},
+        { title: "第二張卡片", contents: "ㄏㄏㄏ"},
+        { title: "第三張卡片", contents: "ＸＤＤＤ"},
+        { title: "第四張卡片", contents: "今天天氣真好"},
+        { title: "第五張卡片", contents: "亂講 明明就很糟"},
+        { title: "第六張卡片", contents: "亂講 明明就很糟"},
+        { title: "第七張卡片", contents: "亂講 明明就很糟"},
+        { title: "第八張卡片", contents: "亂講 明明就很糟"},
+        { title: "第九張卡片", contents: "亂講 明明就很糟"},
     ];
+
+
+    let a = true;
     const even = (card_items) => card_items.filter((item,index) => index%2==0 );
     const odd = (card_items) => card_items.filter((item,index) => index%2!=0 );
 
@@ -121,7 +157,7 @@
     };
 
     const saveCard = (index) => {
-        console.log(`您儲存的是第 ${index+1} 張卡，卡片資訊為：title: ${card_items[index].title}, contents: ${card_items[index].contents}`);
+        console.log(`您儲存的是第 ${index+1} 張卡，卡片資訊為：title: ${card_items[index].title}, contents: ${card_items[index].contents}, hobbys: ${card_items[index].hobbys}`);
     };
 
 
