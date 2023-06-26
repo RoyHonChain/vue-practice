@@ -148,23 +148,28 @@
         { title: "第七張卡片", contents: "亂講 明明就很糟"},
         { title: "第八張卡片", contents: "亂講 明明就很糟"},
         { title: "第九張卡片", contents: "亂講 明明就很糟"},
+        
     ]);
-
 
     const even = computed({
         get: () => card_items.value.filter((item,index) => index%2==0 ),
         set: (val) => {
-            for(let i = 0 ; i < val.length;i++){
-                card_items.value[i*2] = val[i];
+            if(val.length==even.value.length){
+                for(let i = 0 ; i < val.length;i++){
+                    card_items.value[i*2] = val[i];
+                }
             }
+   
         }
     });
 
     const odd = computed({
         get: () => card_items.value.filter((item,index) => index%2!=0 ),
         set: (val) => {
-            for(let i = 0 ; i < val.length;i++){
-                card_items.value[1+(i*2)] = val[i];
+            if(val.length==odd.value.length){
+                for(let i = 0 ; i < val.length;i++){
+                    card_items.value[1+(i*2)] = val[i];
+                }
             }
         }
     });
