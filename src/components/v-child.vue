@@ -56,7 +56,6 @@
     const confirmDialog = () => {
         emits('updateCard',tempCard);
         emits('closeDialog');
-        console.log(props.index);
     };
 
     const cancelDialog = () => {
